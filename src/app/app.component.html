@@ -1,0 +1,65 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="width: 100%">
+  <mat-card class="text-center">Open Weather Map Dev Test</mat-card>
+  <div class="row mt-4">
+    <div class="text-center">
+      <form>
+        <mat-form-field>
+          <mat-label>Search City...</mat-label>
+          <input class="btn-block" type="text" matInput [formControl]="cityFormControl" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
+              (onSelectionChange)="handleSearchCity(option.id)">
+              {{option.name}}, {{option.country}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+  <div class="row mt-4" *ngIf="weather">
+    <div class="offset-md-4 col-md-4">
+      <mat-card
+        style="background-color: lightblue; border-radius: 20px;box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);">
+        <div class="row" style="text-align: center;">
+          <div class="col-md-12" style="font-size: 24px">
+            {{weather?.name}}, {{weather?.sys?.country}}
+          </div>
+          <div class="col-md-6 mt-4" style="align-self: flex-end;">
+            <div class="offset-md-1 col-md-11">
+              {{currentDate}}
+            </div>
+            <div class="offset-md-1 mt-3" style="font-size: 32px">
+              {{weather?.main?.temp || '-'}}&#8451;
+            </div>
+            <div class="offset-md-1 col-md-11">
+              Feels like {{weather?.main?.feels_like}}&#8451;
+            </div>
+          </div>
+          <div class="col-md-6" style="align-self: flex-end;">
+            <div class="col-md-12">
+              <img [src]="weather?.weather[0].icon" alt="">
+            </div>
+            <div class="col-md-12">
+              {{weather?.weather[0]?.main}}, {{weather?.weather[0]?.description}}
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row mt-4" *ngIf="forecast">
+    <div class="offset-md-2 col-md-8" style="overflow-x: auto;">
+      <div>{{forecast?.cnt}} Day Weather - {{forecast?.city?.name}}, {{forecast?.city?.country}}</div>
+      <div *ngFor="let item of forecast.list; let i=index">
+        <mat-card class="mb-1" id="i" style="background-color: lightblue">
+          <div class="row">
+            <div class="offset-md-1 col-md-11" style="font-size: 24px">
+              {{item?.dt}}
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
