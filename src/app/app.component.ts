@@ -47,8 +47,8 @@ export class AppComponent {
     getLocationPromise.then(({ latitude, longitude }) => {
       this.getWeatherByCurrentLocation(latitude, longitude)
       this.getForecastByCurrentLocation(latitude, longitude)
-    }).catch((err) => {
-      console.log(err)
+    }).catch(() => {
+      console.log('Error Get Current Location')
     })
   }
 
@@ -60,7 +60,6 @@ export class AppComponent {
           res.weather[0].icon = `http://openweathermap.org/img/wn/${res.weather[0].icon}@2x.png`
           this.currentDate = moment(new Date()).format('DD MMM, HH:mm');
           this.weather = res;
-          console.log('weather : ', this.weather)
         }
       })
     } catch {
@@ -77,7 +76,6 @@ export class AppComponent {
           this.currentDate = moment(new Date()).format('DD MMM, HH:mm');
           this.getForecastByCurrentLocation(res.coord.lat, res.coord.lon);
           this.weather = res;
-          console.log('weather : ', this.weather)
         }
       })
     } catch {
@@ -94,8 +92,7 @@ export class AppComponent {
             item.weather[0].icon = `http://openweathermap.org/img/wn/${item.weather[0].icon}.png`;
             return item
           })
-          this.forecast = res
-          console.log('forecast : ', this.forecast)
+          this.forecast = res;
         }
       })
     } catch {
