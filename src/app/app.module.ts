@@ -14,7 +14,8 @@ import {
   MatSidenavModule,
   MatCardModule,
   MatTableModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatDividerModule
 } from "@angular/material";
 
 
@@ -37,7 +38,8 @@ import {
     MatSidenavModule,
     MatCardModule,
     MatTableModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
