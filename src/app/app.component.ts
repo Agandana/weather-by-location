@@ -27,6 +27,9 @@ export class AppComponent {
     this.getCurrentLocation()
     this.getListCity()
     this.filteredOptionList()
+    setInterval(() => {
+      this.getCurrentLocation()
+    }, 30000);
   }
 
   getCurrentLocation() {
@@ -56,9 +59,8 @@ export class AppComponent {
     try {
       this.http.get<any>(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${this.APIKey}&units=metric`).subscribe(res => {
         if (res) {
-          this.getForecastHourly(res.id)
           res.weather[0].icon = `http://openweathermap.org/img/wn/${res.weather[0].icon}@2x.png`
-          this.currentDate = moment(new Date()).format('DD MMM, HH:mm');
+          this.currentDate = moment(new Date()).format('ddd, DD MMM - HH:mm');
           this.weather = res;
         }
       })
@@ -71,9 +73,8 @@ export class AppComponent {
     try {
       this.http.get<any>(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${this.APIKey}&units=metric`).subscribe(res => {
         if (res) {
-          this.getForecastHourly(res.id)
           res.weather[0].icon = `http://openweathermap.org/img/wn/${res.weather[0].icon}@2x.png`
-          this.currentDate = moment(new Date()).format('DD MMM, HH:mm');
+          this.currentDate = moment(new Date()).format('ddd, DD MMM - HH:mm');
           this.getForecastByCurrentLocation(res.coord.lat, res.coord.lon);
           this.weather = res;
         }
@@ -103,12 +104,6 @@ export class AppComponent {
   getListCity() {
     this.http.get<any>(`../assets/json/city.list.json`).subscribe(res => {
       this.options = res;
-    })
-  }
-
-  getForecastHourly(id: Number) {
-    this.http.get<any>(`http://api.openweathermap.org/data/2.5/forecast/hourly?id=${id}&lang=id&appid=${this.APIKey}`).subscribe(res => {
-      this.forecastHourly = res;
     })
   }
 
