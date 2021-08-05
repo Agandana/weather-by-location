@@ -6,7 +6,7 @@ import { map, startWith } from 'rxjs/operators';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-welcome',
+  selector: 'app-open-weather-map',
   templateUrl: './open-weather-map.component.html',
   styleUrls: ['./open-weather-map.component.css']
 })
